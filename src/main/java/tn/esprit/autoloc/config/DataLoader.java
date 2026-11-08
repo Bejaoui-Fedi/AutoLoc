@@ -17,8 +17,21 @@ public class DataLoader {
     CommandLineRunner initDatabase(VehiculeRepository vehiculeRepository) {
         return args -> {
             if (vehiculeRepository.count() == 0) {
-                Vehicule v1 = new Vehicule(null, "200-TUN-1234", "Peugeot", "208", CategorieVehicule.CITADINE, new BigDecimal("90.00"), StatutVehicule.DISPONIBLE);
-                Vehicule v2 = new Vehicule(null, "210-TUN-5678", "Volkswagen", "Tiguan", CategorieVehicule.SUV, new BigDecimal("180.00"), StatutVehicule.DISPONIBLE);
+                Vehicule v1 = new Vehicule();
+                v1.setImmatriculation("200-TUN-1234");
+                v1.setMarque("Peugeot");
+                v1.setModele("208");
+                v1.setCategorie(CategorieVehicule.CITADINE);
+                v1.setTarifJournalier(new BigDecimal("90.00"));
+                v1.setStatut(StatutVehicule.DISPONIBLE);
+
+                Vehicule v2 = new Vehicule();
+                v2.setImmatriculation("210-TUN-5678");
+                v2.setMarque("Volkswagen");
+                v2.setModele("Tiguan");
+                v2.setCategorie(CategorieVehicule.SUV);
+                v2.setTarifJournalier(new BigDecimal("180.00"));
+                v2.setStatut(StatutVehicule.DISPONIBLE);
 
                 vehiculeRepository.save(v1);
                 vehiculeRepository.save(v2);

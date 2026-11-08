@@ -27,4 +27,8 @@ public class Employe {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private RoleEmploye role;
+
+    // N Employés -> 1 Agence[cite: 24]
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Agence agence;
 }

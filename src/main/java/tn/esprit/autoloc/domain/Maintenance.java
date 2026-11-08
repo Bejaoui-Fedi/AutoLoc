@@ -26,4 +26,8 @@ public class Maintenance {
 
     @Column(length = 255)
     private String description;
+
+    // N Maintenances -> 1 Véhicule
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Vehicule vehicule;
 }
