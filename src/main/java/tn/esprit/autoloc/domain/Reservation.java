@@ -1,0 +1,51 @@
+package tn.esprit.autoloc.domain;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "reservation")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Reservation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idReservation;
+
+    @Column(nullable = false)
+    private LocalDate dateDebut;
+
+    @Column(nullable = false)
+    private LocalDate dateFin;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private java.math.BigDecimal montantTotal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private StatutReservation statut;
+
+    // N Réservations -> 1 Client[cite: 24]
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Client client;
+
+    // N Réservations -> 1 Véhicule[cite: 24]
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Vehicule vehicule;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Agence agence;
+
+    // 1 Réservation -> 1 Contrat (Cascade ALL côté Reservation)[cite: 24]
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Contrat contrat;
+}
